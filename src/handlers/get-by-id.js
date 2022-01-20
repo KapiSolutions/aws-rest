@@ -115,7 +115,7 @@ async function logSongsByArtist(){
             TableName: tableName,
             KeyConditionExpression: 'user_id = :v1',
             ExpressionAttributeValues: {
-                ':v1': {'S': user_id}
+                ':v1': user_id
             }          
             
         };
@@ -137,16 +137,6 @@ async function logSongsByArtist(){
 logSongsByArtist()
 
 ////////////////////////////////////////////////////
-    // var params = {
-    //     TableName : tableName,
-    //     KeyConditionExpression: "#yr = :yyyy",
-    //     ExpressionAttributeNames:{
-    //         "#yr": "user_id"
-    //     },
-    //     ExpressionAttributeValues: {
-    //         ":yyyy": user_id
-    //     }
-    // };
 
 // dynamoDB
 //   .query({
