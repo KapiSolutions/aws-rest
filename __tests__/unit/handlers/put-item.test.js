@@ -38,7 +38,7 @@ describe('Test putItemHandler', () => {
             statusCode: 200,
            // body: "user_id: " ,
         };
-        expect().toContainEqual(expectedResult)
+        expect(result).toContainEqual(expectedResult)
         // Compare the result with the expected result
         //expect(result).toEqual(expectedResult);
     });
