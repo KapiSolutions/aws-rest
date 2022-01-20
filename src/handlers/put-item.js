@@ -20,9 +20,9 @@ exports.putItemHandler = async (event) => {
     console.log('received:', JSON.stringify(event));
 
     // Get name and age from the body of the request
-    const {user_id, name, age } = JSON.parse(body);
+    const { name, age } = JSON.parse(body);
     // Generate uuid for the new user_id
-    //var user_uuid = uuidv4();
+    var user_id = uuidv4();
 
     // Create a new user 
     const params = {
