@@ -115,7 +115,7 @@ async function logSongsByArtist(){
         var params = {
             KeyConditionExpression: 'user_id = :artist',
             ExpressionAttributeValues: {
-                ':artist': {'S': user_id}
+                ':artist': {'S': 'b4d2e33e-4692-4a13-b6a7-e45a51a4f9d8'}
             },
             TableName: tableName
         };
