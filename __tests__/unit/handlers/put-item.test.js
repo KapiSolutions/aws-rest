@@ -3,6 +3,7 @@ const dynamodb = require('aws-sdk/clients/dynamodb');
 
 // Import all functions from put-item.js
 const lambda = require('../../../src/handlers/put-item.js');
+const { v4: uuidv4 } = require('uuid');
 
 // This includes all tests for putItemHandler
 describe('Test putItemHandler', () => {
@@ -27,6 +28,7 @@ describe('Test putItemHandler', () => {
             promise: () => Promise.resolve('data'),
         });
 
+        var user_id = uuidv4();
         const event = {
             httpMethod: 'POST',
             body: "user_id: " + user_id,
