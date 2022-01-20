@@ -76,13 +76,13 @@ exports.getByIdHandler = async (event) => {
     var params = {
         TableName: tableName,
         //IndexName: 'some-index',
-        KeyConditionExpression: 'user_id = :v1',
+        KeyConditionExpression: '#id = :v1',
         ExpressionAttributeValues: { 
             ':v1': {
                 'S': user_id
             }  
         },
-        ExpressionAttributeNames: { 'user_id': 'user_id' }
+        ExpressionAttributeNames: { '#id': 'user_id' }
       }
 
       queryItems();
@@ -92,13 +92,14 @@ exports.getByIdHandler = async (event) => {
             const data = await docClient.query(params).promise()
             response = {
                 statusCode: 200,
-                body: JSON.stringify(data),
+                body: "exist: \n" + JSON.stringify(data) ,
+                //body: JSON.stringify(data),
             };
           //return data
         } catch (err) {
             response = {
                 statusCode: 404,
-                body: 'User doesnt exist.',
+                body: 'User doesnt exist : \n' + JSON.stringify(data) ,
             };          
           //return err
         }
