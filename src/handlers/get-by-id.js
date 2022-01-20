@@ -158,7 +158,7 @@ dynamoDB
   })
   .promise()
   .then(data => ok(data.Items))
-  .catch(nok(error));
+  .catch(error => nok(error));
 
 
 function ok(items){
