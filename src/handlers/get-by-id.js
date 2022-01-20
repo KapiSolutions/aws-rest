@@ -38,27 +38,27 @@ exports.getByIdHandler = async (event) => {
     //     };
 
 //////////////////////////////////////
-    // var params = {
-    //     TableName : tableName,
-    //     KeyConditionExpression: "#yr = :yyyy",
-    //     ExpressionAttributeNames:{
-    //         "#yr": "year"
-    //     },
-    //     ExpressionAttributeValues: {
-    //         ":yyyy": 1985
-    //     }
-    // };
-    
-
     var params = {
         TableName : tableName,
-        KeyConditionExpression: "user_id = :id", 
+        KeyConditionExpression: "#yr = :yyyy",
+        ExpressionAttributeNames:{
+            "#yr": "user_id"
+        },
         ExpressionAttributeValues: {
-         ":id": {
-           S: user_id
-          }
+            ":yyyy": user_id
         }
-       };
+    };
+    
+
+    // var params = {
+    //     TableName : tableName,
+    //     KeyConditionExpression: "user_id = :id", 
+    //     ExpressionAttributeValues: {
+    //      ":id": {
+    //        S: user_id
+    //       }
+    //     }
+    //    };
 
     docClient.query(params, function(err, data) {
         if (err) {
