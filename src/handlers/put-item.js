@@ -17,17 +17,17 @@ exports.putItemHandler = async (event) => {
         throw new Error(`postMethod only accepts POST method, you tried: ${httpMethod} method.`);
     }
 
-    //console.log('received:', JSON.stringify(event));
+    console.log('received:', JSON.stringify(event));
 
     // Get name and age from the body of the request
     const {user_id, name, age } = JSON.parse(body);
     // Generate uuid for the new user_id
-    var user_uuid = uuidv4();
+    //var user_uuid = uuidv4();
 
     // Create a new user 
     const params = {
         TableName: tableName,
-        Item: { user_uuid, name, age },
+        Item: { user_id, name, age },
     };
     
     await docClient.put(params).promise();
@@ -39,6 +39,6 @@ exports.putItemHandler = async (event) => {
         //body: "user_id: " + user_id,
     };
 
-    //console.log(`response from: ${path} statusCode: ${response.statusCode} body: ${response.body}`);
+    console.log(`response from: ${path} statusCode: ${response.statusCode} body: ${response.body}`);
     return response;
 };
