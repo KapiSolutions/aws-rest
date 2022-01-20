@@ -20,14 +20,14 @@ exports.putItemHandler = async (event) => {
     //console.log('received:', JSON.stringify(event));
 
     // Get name and age from the body of the request
-    const { name, age } = JSON.parse(body);
+    const {user_id, name, age } = JSON.parse(body);
     // Generate uuid for the new user_id
-    var user_id = uuidv4();
+    var user_uuid = uuidv4();
 
     // Create a new user 
     const params = {
         TableName: tableName,
-        Item: { user_id, name, age },
+        Item: { user_uuid, name, age },
     };
     
     await docClient.put(params).promise();
@@ -35,7 +35,8 @@ exports.putItemHandler = async (event) => {
     //Construct the response
     const response = {
         statusCode: 200,
-        body: "user_id: " + user_id,
+        body: "user_id: ",
+        //body: "user_id: " + user_id,
     };
 
     //console.log(`response from: ${path} statusCode: ${response.statusCode} body: ${response.body}`);
