@@ -76,9 +76,13 @@ exports.getByIdHandler = async (event) => {
     var params = {
         TableName: tableName,
         //IndexName: 'some-index',
-        KeyConditionExpression: '#name = :value',
-        ExpressionAttributeValues: { ':value': 'b4d2e33e-4692-4a13-b6a7-e45a51a4f9d8' },
-        ExpressionAttributeNames: { '#name': 'user_id' }
+        KeyConditionExpression: 'user_id = :v1',
+        ExpressionAttributeValues: { 
+            ':v1': {
+                'S': user_id
+            }  
+        },
+        ExpressionAttributeNames: { 'user_id': 'user_id' }
       }
 
       queryItems();
