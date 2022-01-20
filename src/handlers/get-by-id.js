@@ -1,13 +1,13 @@
 // Create clients and set shared const values outside of the handler
 
 // Create a DocumentClient that represents the query to get an item
-// const dynamodb = require('aws-sdk/clients/dynamodb');
+const dynamodb = require('aws-sdk/clients/dynamodb');
 
-// const docClient = new dynamodb.DocumentClient();
+const docClient = new dynamodb.DocumentClient();
 
 
-const AWS = require('aws-sdk');
-const docClient = new AWS.DynamoDB.DocumentClient();
+// const AWS = require('aws-sdk');
+// const docClient = new AWS.DynamoDB.DocumentClient();
 // Get the DynamoDB table name from environment variables
 const tableName = process.env.USERS_TABLE;
 var response = {};
@@ -71,42 +71,72 @@ exports.getByIdHandler = async (event) => {
 
 
 
+///////////////////////////////////////////
+
+    // var params = {
+    //     TableName: tableName,
+    //     //IndexName: 'some-index',
+    //     KeyConditionExpression: '#id = :v1',
+    //     ExpressionAttributeValues: { 
+    //         ':v1': {
+    //             'S': user_id
+    //         }  
+    //     },
+    //     ExpressionAttributeNames: { '#id': 'user_id' }
+    //   }
+
+    //   queryItems();
+
+    // async function queryItems(){
+    //     try {
+    //         const data = await docClient.query(params).promise()
+    //         response = {
+    //             statusCode: 200,
+    //             body: "exist: \n" + JSON.stringify(data) ,
+    //             //body: JSON.stringify(data),
+    //         };
+    //       //return data
+    //     } catch (err) {
+    //         response = {
+    //             statusCode: 404,
+    //             body: 'User doesnt exist : \n' + JSON.stringify(data) ,
+    //         };          
+    //       //return err
+    //     }
+    //   }
+
+       
 
 
-    var params = {
-        TableName: tableName,
-        //IndexName: 'some-index',
-        KeyConditionExpression: '#id = :v1',
-        ExpressionAttributeValues: { 
-            ':v1': {
-                'S': user_id
-            }  
-        },
-        ExpressionAttributeNames: { '#id': 'user_id' }
-      }
+////////////////////////////////////////////////////////
 
-      queryItems();
+async function logSongsByArtist(){
+    try {
+        var params = {
+            KeyConditionExpression: 'user_id = :artist',
+            ExpressionAttributeValues: {
+                ':artist': {'S': user_id}
+            },
+            TableName: tableName
+        };
 
-    async function queryItems(){
-        try {
-            const data = await docClient.query(params).promise()
-            response = {
-                statusCode: 200,
-                body: "exist: \n" + JSON.stringify(data) ,
-                //body: JSON.stringify(data),
-            };
-          //return data
-        } catch (err) {
-            response = {
-                statusCode: 404,
-                body: 'User doesnt exist : \n' + JSON.stringify(data) ,
-            };          
-          //return err
-        }
-      }
+        var result = await docClient.query(params).promise()
+        console.log(JSON.stringify(result))
+        response = {
+            statusCode: 200,
+            body: "exist: \n" + JSON.stringify(result) ,
+        };
+    } catch (error) {
+        console.error(error);
+        response = {
+            statusCode: 404,
+            body: 'User doesnt exist : \n' + JSON.stringify(error) ,
+        }; 
+    }
+}
+logSongsByArtist()
 
-      
-    
+
 
     console.log(`response from: ${path} statusCode: ${response.statusCode} body: ${response.body}`);
     return response;
