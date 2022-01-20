@@ -36,9 +36,9 @@ describe('Test putItemHandler', () => {
         const result = await lambda.putItemHandler(event);
         const expectedResult = {
             statusCode: 200,
-            body: "user_id: 2" ,
+            //body: "user_id: 2" ,
         };
-        expect(result).toHaveLength(expectedResult)
+        expect(result).toContain(expectedResult);
         // Compare the result with the expected result
         //expect(result).toEqual(expectedResult);
     });
