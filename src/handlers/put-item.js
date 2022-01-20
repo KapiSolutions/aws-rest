@@ -30,8 +30,9 @@ exports.putItemHandler = async (event) => {
         Item: { user_id, name, age },
     };
     
+    //Put a new user to the DynamoDB
     await docClient.put(params).promise();
-
+    
     //Construct the response
     const response = {
         statusCode: 200,
