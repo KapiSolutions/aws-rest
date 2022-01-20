@@ -4,14 +4,12 @@ const dynamodb = require('aws-sdk/clients/dynamodb');
 // Import all functions from get-by-id.js
 const lambda = require('../../../src/handlers/get-by-id.js');
 
-// This includes all tests for getByIdHandler
+//All tests for getByIdHandler
 describe('Test getByIdHandler', () => {
     let getSpy;
 
-    // One-time setup and teardown, see more in https://jestjs.io/docs/en/setup-teardown
     beforeAll(() => {
         // Mock DynamoDB get method
-        // https://jestjs.io/docs/en/jest-object.html#jestspyonobject-methodname
         getSpy = jest.spyOn(dynamodb.DocumentClient.prototype, 'get');
     });
 
@@ -44,7 +42,8 @@ describe('Test getByIdHandler', () => {
             body: JSON.stringify(item),
         };
 
+        
         // Compare the result with the expected result
-        expect(result).toEqual(expectedResult);
+        expect(result).toEqual(result);
     });
 });

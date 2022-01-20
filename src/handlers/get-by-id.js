@@ -25,23 +25,60 @@ exports.getByIdHandler = async (event) => {
 
     // Get the item from the table
     // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#get-property
-    const params = {
-        TableName: tableName,
-        Key: { user_id },
-    };
-    const { Item } = await docClient.get(params).promise();
+   
+    // const params = {
+    //     TableName: tableName,
+    //     Key: { user_id },
+    // };
+    // const { Item } = await docClient.get(params).promise();
 
-    if(Item === null){
-         response = {
-            statusCode: 200,
-            body: JSON.stringify(Item),
-        };
-    }else{
-         response = {
-            statusCode: 200,
-            body: JSON.stringify(Item),
-        };
-    }
+    //      response = {
+    //         statusCode: 200,
+    //         body: JSON.stringify(Item),
+    //     };
+
+//////////////////////////////////////
+    // var params = {
+    //     TableName : tableName,
+    //     KeyConditionExpression: "#yr = :yyyy",
+    //     ExpressionAttributeNames:{
+    //         "#yr": "year"
+    //     },
+    //     ExpressionAttributeValues: {
+    //         ":yyyy": 1985
+    //     }
+    // };
+    
+
+    var params = {
+        TableName : tableName,
+        KeyConditionExpression: "user_id = :id", 
+        ExpressionAttributeValues: {
+         ":id": {
+           S: user_id
+          }
+        }
+       };
+
+    docClient.query(params, function(err, data) {
+        if (err) {
+            console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+            response = {
+                statusCode: 404,
+                body: JSON.stringify(data),
+            };
+        } else {
+            console.log("Query succeeded.");
+            // data.Items.forEach(function(item) {
+            //     console.log(" -", item.year + ": " + item.title);
+            // });
+            response = {
+                statusCode: 200,
+                body: JSON.stringify(data),
+            };
+        }
+    });
+
 
     
 

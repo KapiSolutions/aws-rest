@@ -4,14 +4,12 @@ const dynamodb = require('aws-sdk/clients/dynamodb');
 // Import all functions from put-item.js
 const lambda = require('../../../src/handlers/put-item.js');
 
-// This includes all tests for putItemHandler
+//All tests for putItemHandler
 describe('Test putItemHandler', () => {
     let putSpy;
 
-    // One-time setup and teardown, see more in https://jestjs.io/docs/en/setup-teardown
     beforeAll(() => {
         // Mock DynamoDB put method
-        // https://jestjs.io/docs/en/jest-object.html#jestspyonobject-methodname
         putSpy = jest.spyOn(dynamodb.DocumentClient.prototype, 'put');
     });
 
