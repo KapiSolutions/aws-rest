@@ -174,7 +174,7 @@ logSongsByArtist()
 //         statusCode: 404,
 //         body: "exist: \n" + JSON.stringify(error) ,
 //     };
-}
+//}
 
     console.log(`response from: ${path} statusCode: ${response.statusCode} body: ${response.body}`);
     return response;
