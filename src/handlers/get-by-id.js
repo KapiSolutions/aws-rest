@@ -117,6 +117,7 @@ async function logSongsByArtist(){
             ExpressionAttributeValues: {
                 ':artist': {'S': 'b4d2e33e-4692-4a13-b6a7-e45a51a4f9d8'}
             },
+            ExpressionAttributeNames: { 'user_id': 'user_id' },
             TableName: tableName
         };
 
