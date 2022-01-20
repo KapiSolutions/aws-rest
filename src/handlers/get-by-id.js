@@ -7,7 +7,7 @@ const docClient = new dynamodb.DocumentClient();
 
 // Get the DynamoDB table name from environment variables
 const tableName = process.env.USERS_TABLE;
-
+var response = {};
 /**
  * A simple example includes a HTTP get method to get one item by user_id from a DynamoDB table.
  */
@@ -31,10 +31,19 @@ exports.getByIdHandler = async (event) => {
     };
     const { Item } = await docClient.get(params).promise();
 
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify(Item),
-    };
+    if(Item === null){
+         response = {
+            statusCode: 200,
+            body: JSON.stringify(Item),
+        };
+    }else{
+         response = {
+            statusCode: 200,
+            body: JSON.stringify(Item),
+        };
+    }
+
+    
 
     console.log(`response from: ${path} statusCode: ${response.statusCode} body: ${response.body}`);
     return response;
