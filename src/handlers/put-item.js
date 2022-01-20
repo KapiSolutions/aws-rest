@@ -35,7 +35,7 @@ exports.putItemHandler = async (event) => {
     //Construct the response
     const response = {
         statusCode: 200,
-        body: 'user_id: ',
+        body,
         //body: "user_id: " + user_id,
     };
 
