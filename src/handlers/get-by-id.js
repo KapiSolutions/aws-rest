@@ -23,31 +23,18 @@ exports.getByIdHandler = async (event) => {
     // Get id from pathParameters from APIGateway because of `/{user_id}` at template.yml
     const { user_id } = pathParameters;
 
-    // Get the item from the table
-    // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#get-property
-   
-    // const params = {
-    //     TableName: tableName,
-    //     Key: { user_id },
+    // Get the item from the table using Query
+
+    // var params = {
+    //     TableName : tableName,
+    //     KeyConditionExpression: "#yr = :yyyy",
+    //     ExpressionAttributeNames:{
+    //         "#yr": "user_id"
+    //     },
+    //     ExpressionAttributeValues: {
+    //         ":yyyy": user_id
+    //     }
     // };
-    // const { Item } = await docClient.get(params).promise();
-
-    //      response = {
-    //         statusCode: 200,
-    //         body: JSON.stringify(Item),
-    //     };
-
-//////////////////////////////////////
-    var params = {
-        TableName : tableName,
-        KeyConditionExpression: "#yr = :yyyy",
-        ExpressionAttributeNames:{
-            "#yr": "user_id"
-        },
-        ExpressionAttributeValues: {
-            ":yyyy": user_id
-        }
-    };
     
 
     // var params = {
@@ -60,26 +47,57 @@ exports.getByIdHandler = async (event) => {
     //     }
     //    };
 
-    docClient.query(params, function(err, data) {
-        if (err) {
-            console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
-            response = {
-                statusCode: 404,
-                body: JSON.stringify(data),
-            };
-        } else {
-            console.log("Query succeeded.");
-            // data.Items.forEach(function(item) {
-            //     console.log(" -", item.year + ": " + item.title);
-            // });
+    // docClient.query(params, function(err, data) {
+    //     if (err) {
+    //         console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+    //         response = {
+    //             statusCode: 404,
+    //             body: JSON.stringify(data),
+    //         };
+    //     } else {
+    //         console.log("Query succeeded.");
+    //         // data.Items.forEach(function(item) {
+    //         //     console.log(" -", item.year + ": " + item.title);
+    //         // });
+    //         response = {
+    //             statusCode: 200,
+    //             body: JSON.stringify(data),
+    //         };
+    //     }
+    // });
+
+
+
+
+
+    var params = {
+        TableName: tableName,
+        //IndexName: 'some-index',
+        KeyConditionExpression: '#name = :value',
+        ExpressionAttributeValues: { ':value': user_id },
+        ExpressionAttributeNames: { '#name': 'user_id' }
+      }
+
+      queryItems();
+      
+    async function queryItems(){
+        try {
+            const data = await docClient.query(params).promise()
             response = {
                 statusCode: 200,
                 body: JSON.stringify(data),
             };
+          //return data
+        } catch (err) {
+            response = {
+                statusCode: 404,
+                body: 'User doesnt exist.',
+            };          
+          //return err
         }
-    });
+      }
 
-
+      
     
 
     console.log(`response from: ${path} statusCode: ${response.statusCode} body: ${response.body}`);
