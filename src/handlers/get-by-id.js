@@ -1,13 +1,12 @@
 // Create clients and set shared const values outside of the handler
 
 // Create a DocumentClient that represents the query to get an item
-const dynamodb = require('aws-sdk/clients/dynamodb');
+// const dynamodb = require('aws-sdk/clients/dynamodb');
+// const docClient = new dynamodb.DocumentClient();
 
-const docClient = new dynamodb.DocumentClient();
+const AWS = require('aws-sdk');
+const dynamoDB = new AWS.DynamoDB.DocumentClient({ region:'us-east-1' });
 
-
-// const AWS = require('aws-sdk');
-// const docClient = new AWS.DynamoDB.DocumentClient();
 // Get the DynamoDB table name from environment variables
 const tableName = process.env.USERS_TABLE;
 var response = {};
@@ -110,34 +109,72 @@ exports.getByIdHandler = async (event) => {
 
 ////////////////////////////////////////////////////////
 
-async function logSongsByArtist(){
-    try {
-        var params = {
-            KeyConditionExpression: 'user_id = :artist',
-            ExpressionAttributeValues: {
-                ':artist': {'S': 'b4d2e33e-4692-4a13-b6a7-e45a51a4f9d8'}
-            },
-            ExpressionAttributeNames: { 'user_id': 'user_id' },
-            TableName: tableName
-        };
+// async function logSongsByArtist(){
+//     try {
+//         var params = {
+//             KeyConditionExpression: 'user_id = :artist',
+//             ExpressionAttributeValues: {
+//                 ':artist': {'S': 'b4d2e33e-4692-4a13-b6a7-e45a51a4f9d8'}
+//             },
+//             ExpressionAttributeNames: { 'user_id': 'user_id' },
+//             TableName: tableName
+//         };
 
-        var result = await docClient.query(params).promise()
-        console.log(JSON.stringify(result))
-        response = {
-            statusCode: 200,
-            body: "exist: \n" + JSON.stringify(result) ,
-        };
-    } catch (error) {
-        console.error(error);
-        response = {
-            statusCode: 404,
-            body: 'User doesnt exist : \n' + JSON.stringify(error) ,
-        }; 
+//         var result = await docClient.query(params).promise()
+//         console.log(JSON.stringify(result))
+//         response = {
+//             statusCode: 200,
+//             body: "exist: \n" + JSON.stringify(result) ,
+//         };
+//     } catch (error) {
+//         console.error(error);
+//         response = {
+//             statusCode: 404,
+//             body: 'User doesnt exist : \n' + JSON.stringify(error) ,
+//         }; 
+//     }
+// }
+// logSongsByArtist()
+
+////////////////////////////////////////////////////
+    // var params = {
+    //     TableName : tableName,
+    //     KeyConditionExpression: "#yr = :yyyy",
+    //     ExpressionAttributeNames:{
+    //         "#yr": "user_id"
+    //     },
+    //     ExpressionAttributeValues: {
+    //         ":yyyy": user_id
+    //     }
+    // };
+
+dynamoDB
+  .query({
+    TableName: tableName,
+    KeyConditionExpression: 'id = :v1' ,
+    ExpressionAttributeValues: { 
+      ':v1': user_id
     }
+  })
+  .promise()
+  .then(data => ok(data.Items))
+  .catch(nok(error));
+
+
+function ok(items){
+    console.log(items);
+    response = {
+        statusCode: 200,
+        body: "exist: \n" + JSON.stringify(items) ,
+    };
 }
-logSongsByArtist()
-
-
+function nok(error){
+    console.log(error);
+    response = {
+        statusCode: 404,
+        body: "exist: \n" + JSON.stringify(error) ,
+    };
+}
 
     console.log(`response from: ${path} statusCode: ${response.statusCode} body: ${response.body}`);
     return response;
