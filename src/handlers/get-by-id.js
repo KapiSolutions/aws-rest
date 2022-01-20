@@ -1,10 +1,13 @@
 // Create clients and set shared const values outside of the handler
 
 // Create a DocumentClient that represents the query to get an item
-const dynamodb = require('aws-sdk/clients/dynamodb');
+// const dynamodb = require('aws-sdk/clients/dynamodb');
 
-const docClient = new dynamodb.DocumentClient();
+// const docClient = new dynamodb.DocumentClient();
 
+
+const AWS = require('aws-sdk');
+const docClient = new AWS.DynamoDB.DocumentClient();
 // Get the DynamoDB table name from environment variables
 const tableName = process.env.USERS_TABLE;
 var response = {};
@@ -79,7 +82,7 @@ exports.getByIdHandler = async (event) => {
       }
 
       queryItems();
-      
+
     async function queryItems(){
         try {
             const data = await docClient.query(params).promise()
