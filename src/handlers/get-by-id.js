@@ -151,7 +151,7 @@ exports.getByIdHandler = async (event) => {
 dynamoDB
   .query({
     TableName: tableName,
-    KeyConditionExpression: 'id = :v1' ,
+    KeyConditionExpression: 'user_id = :v1' ,
     ExpressionAttributeValues: { 
       ':v1': user_id
     }
