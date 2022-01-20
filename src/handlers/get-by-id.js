@@ -67,49 +67,12 @@ exports.getByIdHandler = async (event) => {
     //         };
     //     }
     // });
-
-
-
-///////////////////////////////////////////
-
-    // var params = {
-    //     TableName: tableName,
-    //     //IndexName: 'some-index',
-    //     KeyConditionExpression: '#id = :v1',
-    //     ExpressionAttributeValues: { 
-    //         ':v1': {
-    //             'S': user_id
-    //         }  
-    //     },
-    //     ExpressionAttributeNames: { '#id': 'user_id' }
-    //   }
-
-    //   queryItems();
-
-    // async function queryItems(){
-    //     try {
-    //         const data = await docClient.query(params).promise()
-    //         response = {
-    //             statusCode: 200,
-    //             body: "exist: \n" + JSON.stringify(data) ,
-    //             //body: JSON.stringify(data),
-    //         };
-    //       //return data
-    //     } catch (err) {
-    //         response = {
-    //             statusCode: 404,
-    //             body: 'User doesnt exist : \n' + JSON.stringify(data) ,
-    //         };          
-    //       //return err
-    //     }
-    //   }
-
-       
+    
 
 
 ////////////////////////////////////////////////////////
 
-async function logSongsByArtist(){
+
     try {
         var params = {
             TableName: tableName,
@@ -117,24 +80,28 @@ async function logSongsByArtist(){
             ExpressionAttributeValues: {
                 ':v1': user_id
             }          
-            
         };
 
         var result = await docClient.query(params).promise()
         console.log(JSON.stringify(result))
-        response = {
-            statusCode: 200,
-            body: JSON.stringify(result) ,
-        };
+
+        if(result.Items == undefined){
+            response = {
+                statusCode: 404,
+                body: 'User doesnt exist.' ,
+            }; 
+        }else{
+            response = {
+                statusCode: 200,
+                body: JSON.stringify(result.Items) ,
+            };
+        }
+
+        
     } catch (error) {
         console.error(error);
-        response = {
-            statusCode: 404,
-            body: JSON.stringify(error) ,
-        }; 
     }
-}
-logSongsByArtist()
+
 
 ////////////////////////////////////////////////////
 
