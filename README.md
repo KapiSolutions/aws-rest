@@ -111,7 +111,7 @@ Resources:
         - SQSSendMessagePolicy:
             QueueName: !GetAtt MyQueue.QueueName
         - DynamoDBCrudPolicy:
-            TableName: !Ref SampleTable
+            TableName: !Ref users
 ```
 
 Commit and push the change. When the deployment completes, view the function in the console to see the updated configuration that specifies the dead-letter queue.
