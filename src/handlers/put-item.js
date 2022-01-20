@@ -36,7 +36,7 @@ exports.putItemHandler = async (event) => {
     const response = {
         statusCode: 200,
         //body,
-        body: "user_id: " + user_id,
+        body: "user_id: ",
     };
 
     console.log(`response from: ${path} statusCode: ${response.statusCode} body: ${response.body}`);
