@@ -1,6 +1,6 @@
 {
     "name": "lambda-api-backend",
-    "description": "Website & Mobile starter project",
+    "description": "AWS rest test app",
     "version": "0.0.1",
     "private": true,
     "dependencies": {

@@ -35,7 +35,7 @@ exports.getByIdHandler = async (event) => {
         if(result.Count == 0){
             response = {
                 statusCode: 404,
-                body: "User doesnt exist." ,
+                body,
             }; 
         }else{
             response = {
