@@ -30,7 +30,7 @@ describe('Test getByIdHandler', () => {
         const event = {
             httpMethod: 'GET',
             pathParameters: {
-                id: 'id1',
+                user_id: 'id1',
             },
         };
 
@@ -42,7 +42,6 @@ describe('Test getByIdHandler', () => {
             body: JSON.stringify(item),
         };
 
-        
         // Compare the result with the expected result
         expect(result).toEqual(result);
     });
