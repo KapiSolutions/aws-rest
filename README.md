@@ -1,15 +1,15 @@
 # AWS rest test app
 Description:
-    -REST API in AWS API Gateway.
-    -2 HTTP methods in the API: GET & POST.
-   - DynamoDB Table "users" with a parition key (hash key) "user_id".
-    -Lambda function and integrated with the API POST method. User is able to specify his first name and age in the JSON body of HTTP POST request. Lambda provides body and insert it into DynamoDB table as a new item. Value for user_id column is generated as a random GUID and returned to the caller in the response.
-    -Lambda function integrated with the API GET method. GET method takes a user_id as path parameter. Lambda lookup the DynamoDB table using query method and either return user or 404 status code if it doesn't exist.
+  - REST API in AWS API Gateway.
+  - 2 HTTP methods in the API: GET & POST.
+  - DynamoDB Table "users" with a parition key (hash key) "user_id".
+  - Lambda function and integrated with the API POST method. User is able to specify his first name and age in the JSON body of HTTP POST request. Lambda provides body and insert it into DynamoDB table as a new item. Value for user_id column is generated as a random GUID and returned to the caller in the response.
+  - Lambda function integrated with the API GET method. GET method takes a user_id as path parameter. Lambda lookup the DynamoDB table using query method and either return user or 404 status code if it doesn't exist.
 
 The project includes the following files and folders:
 
 - src - Code for the application's Lambda function.
-- events - Invocation events that you can use to invoke the function.
+- events - Invocation events.
 - \_\_tests__ - Unit tests for the application code.
 - template.yml - A SAM template that defines the application's AWS resources.
 - buildspec.yml -  A build specification file that tells AWS CodeBuild how to create a deployment package for the function.
@@ -22,7 +22,7 @@ The pipeline creates a second stack that contains the application's resources, i
 
 The sample application creates a RESTful API that takes HTTP requests and invokes Lambda functions. The API has POST and GET methods on the root path to create and list items. It has a GET method that takes an ID path parameter to retrieve items. Each method maps to one of the application's two Lambda functions.
 
-**To use the sample API**
+**To use this test API**
 
 1. Choose your application from the [**Applications page**](https://console.aws.amazon.com/lambda/home#/applications) in the Lambda console. (Make sure you're in the right region)
 1. Copy the URL that's listed under **API endpoint**.
