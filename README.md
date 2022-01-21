@@ -23,26 +23,19 @@ The pipeline creates a second stack that contains the application's resources, i
 The sample application creates a RESTful API that takes HTTP requests and invokes Lambda functions. The API has POST and GET methods on the root path to create and list items. It has a GET method that takes an ID path parameter to retrieve items. Each method maps to one of the application's two Lambda functions.
 
 **To use this test API**
-Example based on curl:
+
 1. To try this app first choose a tool which provides http requests eg. curl
-1. Copy the URL that's listed under **API endpoint**.
-1. At the command line, use cURL to send POST requests to the application endpoint.
+1. Open cmd or powershell
+1. At the command line, use cURL to send POST requests to the application endpoint. (Body eg.: {\"name\": \"bill\",\"age\": \"16\"} )
 
-        $ ENDPOINT=<paste-your-endpoint-here>
-        $ curl -d '{"id":"1234ABCD", "name":"My item"}' -H "Content-Type: application/json" -X POST $ENDPOINT
-        {"id":"1234ABCD","name":"My item"}
-        $ curl -d '{"id":"2234ABCD", "name":"My other item"}' -H "Content-Type: application/json" -X POST $ENDPOINT
-        {"id":"2234ABCD","name":"My other item"}
-
-1. Send a GET request to the endpoint to get a list of items.
-
-        $ curl $ENDPOINT
-        [{"id":"1234ABCD","name":"My item"},{"id":"2234ABCD","name":"My other item"}]
+        $ curl.exe -X POST -H "Accept: application/json" -H  "Content-Type: application/json" https://i654ctcpw4.execute-api.us-east-1.amazonaws.com/Prod/ -d '{\"name\": \"bill\",\"age\": \"16\"}'
+        $ user_id: 4ef9410e-04e8-441b-b948-3bdbb0b0b9e9
+        
 
 1. Send a GET request with the item ID to get a single item.
 
-        $ curl $ENDPOINT/1234ABCD
-        {"id":"1234ABCD","name":"My item"}
+        $ curl https://i654ctcpw4.execute-api.us-east-1.amazonaws.com/Prod/{USER_ID}
+        {"user_id":"b4d2e33e-4692-4a13-b6a7-e45a51a4f9d8","name":"bill","age":"16"}
 
 
 
