@@ -85,7 +85,7 @@ exports.getByIdHandler = async (event) => {
         var result = await docClient.query(params).promise()
         console.log(JSON.stringify(result))
 
-        if(result.Items == []){
+        if(JSON.stringify(result.Items) == []){
             response = {
                 statusCode: 404,
                 body: 'User doesnt exist.' ,

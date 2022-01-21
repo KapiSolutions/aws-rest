@@ -1,8 +1,12 @@
-# Website & Mobile Starter Project
+# AWS rest test app
+Description:
+    -REST API in AWS API Gateway.
+    -2 HTTP methods in the API: GET & POST.
+   - DynamoDB Table "users" with a parition key (hash key) "user_id".
+    -Lambda function and integrated with the API POST method. User is able to specify his first name and age in the JSON body of HTTP POST request. Lambda provides body and insert it into DynamoDB table as a new item. Value for user_id column is generated as a random GUID and returned to the caller in the response.
+    -Lambda function integrated with the API GET method. GET method takes a user_id as path parameter. Lambda lookup the DynamoDB table using query method and either return user or 404 status code if it doesn't exist.
 
-This project contains source code and supporting files for the serverless application that you created in the AWS Lambda console. You can update your application at any time by committing and pushing changes to your AWS CodeCommit or GitHub repository.
-
-This project includes the following files and folders:
+The project includes the following files and folders:
 
 - src - Code for the application's Lambda function.
 - events - Invocation events that you can use to invoke the function.
