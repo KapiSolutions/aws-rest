@@ -32,7 +32,7 @@ The sample application creates a RESTful API that takes HTTP requests and invoke
         $ user_id: 4ef9410e-04e8-441b-b948-3bdbb0b0b9e9
         
 
-1. Send a GET request with the item ID to get a single item.
+1. Send a GET request with the item {user_id} to get a specyfic user info.
 
         $ curl https://i654ctcpw4.execute-api.us-east-1.amazonaws.com/Prod/{USER_ID}
         $ {"user_id":"b4d2e33e-4692-4a13-b6a7-e45a51a4f9d8","name":"bill","age":"16"}
