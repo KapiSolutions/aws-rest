@@ -26,7 +26,7 @@ The sample application creates a RESTful API that takes HTTP requests and invoke
 
 1. To try this app first choose a tool which provides http requests eg. curl
 1. Open cmd or powershell
-1. At the command line, use cURL to send POST requests to the application endpoint. (Body eg.: {\"name\": \"bill\",\"age\": \"16\"} )
+1. At the command line, use cURL to send POST requests to the application endpoint. (Body eg.: {\"name\": \"bill\",\"age\": \"16\"} ).
 
         $ curl.exe -X POST -H "Accept: application/json" -H  "Content-Type: application/json" https://i654ctcpw4.execute-api.us-east-1.amazonaws.com/Prod/ -d '{\"name\": \"bill\",\"age\": \"16\"}'
         $ user_id: 4ef9410e-04e8-441b-b948-3bdbb0b0b9e9
@@ -35,7 +35,7 @@ The sample application creates a RESTful API that takes HTTP requests and invoke
 1. Send a GET request with the item ID to get a single item.
 
         $ curl https://i654ctcpw4.execute-api.us-east-1.amazonaws.com/Prod/{USER_ID}
-        {"user_id":"b4d2e33e-4692-4a13-b6a7-e45a51a4f9d8","name":"bill","age":"16"}
+        $ {"user_id":"b4d2e33e-4692-4a13-b6a7-e45a51a4f9d8","name":"bill","age":"16"}
 
 
 

@@ -34,7 +34,7 @@ exports.getByIdHandler = async (event) => {
 
         if(JSON.stringify(result.Count) == 0){
             response = {
-                statusCode: 404,
+                statusCode: 400,
                 body: "User doesnt exist." ,
             }; 
         }else{
