@@ -39,11 +39,10 @@ exports.getByIdHandler = async (event) => {
             }; 
         }else{
             response = {
-                statusCode: 404,
+                statusCode: 200,
                 body: JSON.stringify(result.Items) ,
             };
         }
-
         
     } catch (error) {
         console.error(error);
